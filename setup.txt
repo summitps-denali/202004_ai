@@ -61,6 +61,25 @@ Interesting Files
     $ node test.js
       [ use Ctrl C to stop,
         ALWAYS stop this before stopping server ]
+        
+Arena Files
+
+These files are specifically for use with a central arena server.  Check
+with your lab manager if one is available.  Typically arena servers
+expect at least four bot bee bot connections before it will allow
+bee hive simulation to run.  Elimination trials can be conducted if
+different users all target the same arena server.  
+
+  - tsa1.js, tsa1.js, tsa1.js, tsa1.js, bot_a.js 
+
+Create a bot
+
+Before an arena server will honor a bee bot connection, each user
+needs to have a unique hash key.  The arena server web page
+should have a form with a button.  Enter your bee bot name,
+click the Create a bot button, a unique hash key will be displayed.
+Record that hash key, make sure user bee bot uses that value or
+else arena server will not allow bee bot to have any turns.
 
 Related
   - https://artificial-intelligence.rickatech.repl.co/
