@@ -35,7 +35,7 @@ bot.direction = function(game) {
 
     /* ~~ This code decides what to do ~~ */
     var task = "flower";
-  
+
 
     /* ~~This code decides how to do it ~~ */
     if (task == "none") {

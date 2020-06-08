@@ -33,20 +33,33 @@ bot.direction = function(game) {
         
     }
 
+    var stepsToBase = bot.findDistance(game.myBot.pos, game.myBase.pos);
+    var turnsLeft = game.totalTurns - game.turn;
+
+
     /* ~~ This code decides what to do ~~ */
     var task = "flower";
-  
 
+    if (game.myBot.pollen >= 200) {
+        task = "myBase";
+    }
+      else if (stepsToBase * game.players.length >= turnsLeft) {
+        task = "myBase";
+    }
+    
     /* ~~This code decides how to do it ~~ */
     if (task == "none") {
         console.log("Going random!")
         myDir = dirs[Math.floor(Math.random() * 4)];
-        }else if(task == "flower")
-        
-        {
+    }
+    else if(task == "flower")
+    {
             console.log("Going to random flower!")
             myDir = bot.nextStep(game.myBot.pos, mostFlower.pos)
     }
+    else if (task == "myBase") {
+        myDir = bot.nextStep(game.myBot.pos, game.myBase.pos);
+    } 
 
 
     return myDir;
