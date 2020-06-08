@@ -25,6 +25,13 @@ bot.direction = function(game) {
             enemyBots.push(game.players[i]);
         }
     }
+    
+    var enemyMostPollen = enemyBots[0];
+    for (let i = 0; i < enemyBots.length; i++) {
+        if (enemyBots[i].pollen > enemyMostPollen) {
+            enemyMostPollen = enemyBots[i];
+        }
+    } 
 
   var mostFlower = game.flowers[0];
     for (var i = 0; i < game.flowers.length; i++) {
@@ -33,11 +40,25 @@ bot.direction = function(game) {
         }
     }
 
-
+  var stepsToBase = bot.findDistance(game.myBot.pos, game.myBase.pos);
+    var turnsLeft = game.totalTurns - game.turn;
+    
 
 
     /* ~~ This code decides what to do ~~ */
     var task = "flower"
+    
+    
+    if (game.myBot.pollen >= 200) {
+        task = "myBase";
+    }
+    else if (stepsToBase * game.players.length >= turnsLeft) {
+        task = "myBase";
+    }
+    else if (game.myBot.pollen < enemyMostPollen.pollen) {
+        task = "steal";
+    } 
+    
 
 
     /* ~~This code decides how to do it ~~ */
@@ -49,6 +70,14 @@ bot.direction = function(game) {
         console.log("Going to flower with the most pollen!")
         myDir = bot.nextStep(game.myBot.pos, mostFlower.pos);
     } 
+       else if (task == "myBase") {
+        myDir = bot.nextStep(game.myBot.pos, game.myBase.pos);
+    }
+    else if (task == "steal") {
+        console.log("Chasing most Pollen!");
+        myDir = bot.nextStep(game.myBot.pos, enemyMostPollen.pos);
+    }
+    
 
 
     return myDir;

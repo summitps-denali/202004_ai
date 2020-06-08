@@ -26,12 +26,26 @@ bot.direction = function(game) {
         }
     }
 
+
   var mostFlower = game.flowers[0];
     for (var i = 0; i < game.flowers.length; i++) {
         if (mostFlower.pollen < game.flowers[i].pollen) {
             mostFlower = game.flowers[i];
         }
     }
+    var stepsToBase = bot.findDistance(game.myBot.pos, game.myBase.pos);
+    var turnsLeft = game.totalTurns - game.turn;
+    
+    /* ~~ This code decides what to do ~~ */
+    var task = "flower"
+
+    if (game.myBot.pollen >= 200) {
+        task = "myBase";
+    }
+    else if (stepsToBase * game.players.length >= turnsLeft) {
+        task = "myBase";
+    }
+       
 
 
 
@@ -49,6 +63,11 @@ bot.direction = function(game) {
         console.log("Going to flower with the most pollen!")
         myDir = bot.nextStep(game.myBot.pos, mostFlower.pos);
     } 
+        else if (task == "myBase") {
+        myDir = bot.nextStep(game.myBot.pos, game.myBase.pos);
+    } 
+
+
 
 
     return myDir;
